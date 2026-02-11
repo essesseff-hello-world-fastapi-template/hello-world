@@ -1,0 +1,80 @@
+name: Build and Push Container Image
+on:
+  push:
+    branches:
+      - main  # Only main branch (trunk-based)
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Read semantic version
+        id: semver
+        run: |
+          SEMVER=$(cat semver.txt | tr -d '[:space:]')
+          echo "version=${SEMVER}" >> $GITHUB_OUTPUT
+      - name: Generate image tag
+        id: tag
+        run: |
+          GIT_SHORT_HASH=$(git rev-parse --short HEAD)
+          TIMESTAMP=$(date -u +"%Y%m%dT%H%M%SZ")
+          TAG="${{ steps.semver.outputs.version }}-${GIT_SHORT_HASH}-${TIMESTAMP}"
+          echo "tag=${TAG}" >> $GITHUB_OUTPUT
+          echo "git_hash=${GIT_SHORT_HASH}" >> $GITHUB_OUTPUT
+          echo "timestamp=${TIMESTAMP}" >> $GITHUB_OUTPUT
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: ${{ github.event_name == 'push' }}
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.tag.outputs.tag }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: Save build metadata
+        if: github.event_name == 'push'
+        run: |
+          mkdir -p build-metadata
+          cat > build-metadata/image-info.json << 'METADATA_EOF'
+          {
+            "image": "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.tag.outputs.tag }}",
+            "tag": "${{ steps.tag.outputs.tag }}",
+            "semver": "${{ steps.semver.outputs.version }}",
+            "git_hash": "${{ steps.tag.outputs.git_hash }}",
+            "git_sha": "${{ github.sha }}",
+            "timestamp": "${{ steps.tag.outputs.timestamp }}",
+            "branch": "${{ github.ref_name }}",
+            "repository": "${{ github.repository }}",
+            "actor": "${{ github.actor }}",
+            "workflow_run_id": "${{ github.run_id }}"
+          }
+          METADATA_EOF
+      - name: Upload build metadata
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v6
+        with:
+          name: build-metadata
+          path: build-metadata/image-info.json
+          retention-days: 90
+      - name: essesseff integration info
+        if: github.event_name == 'push'
+        run: |
+          echo "✅ Build complete - essesseff will auto-deploy to DEV"
+          echo "Image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.tag.outputs.tag }}"
