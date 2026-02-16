@@ -24,6 +24,17 @@ Python FastAPI implementation with trunk-based development and GitOps-driven dep
 * Argo CD Config STAGING: [hello-world-argocd-staging](https://github.com/essesseff-hello-world-fastapi-template/hello-world-argocd-staging)
 * Argo CD Config PROD: [hello-world-argocd-prod](https://github.com/essesseff-hello-world-fastapi-template/hello-world-argocd-prod)
 
+### Why so many repos?
+
+essesseff favors simplicity and clear boundaries over a single repo with many rules.:
+* Simpler RBAC: Each repo is one permission boundary.  essesseff roles map directly to GitHub repo access (e.g. who can push to config-prod).  There are no path-based approval rules, CODEOWNERS, or branch policies to maintain—just straightforward repo-level permissions, i.e.:
+  - Developer ~ DEV
+  - QA Engineer ~ QA
+  - Release Engineer ~ STAGING and PROD
+  - DevOps Engineer ~ all of the above
+* Distinct change history and audit trail: Each environment has its own git history.  "What changed in prod?" means opening the prod config repo and reading the log.  No filtering a monorepo by path or digging through unrelated commits.  Blame, compliance, and rollbacks stay scoped to the environment.
+* Simplicity via separation: We chose "more repos, each with a single concern and simple rules" over "one repo with complex conventions to get the same isolation."  For a golden path and role-based control, that trade keeps the model easy to explain and operate.
+
 ## Develop, Build and Deploy 
 
 * **Branch Strategy**: Single `main` branch (trunk-based)
