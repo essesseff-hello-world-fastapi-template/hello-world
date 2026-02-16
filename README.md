@@ -28,10 +28,11 @@ Python FastAPI implementation with trunk-based development and GitOps-driven dep
 
 * **Branch Strategy**: Single `main` branch (trunk-based)
 * **Auto-Build**: GitHub Actions image build runs on code push to `main` branch
-* **Auto-Deploy**: DEV CI/CD deployment subsequent to successful image build (via essesseff deployment orchestration)
-* **ClickOps Promote/Deploy/Re-Deploy/Rollback**: DEV, QA, STAGING, PROD (via essesseff UX)
+* **Auto-Deploy**: DEV CI/CD deployment subsequent to successful image build (via [essesseff](https://essesseff.com) deployment orchestration)
+* **ClickOps Promote/Deploy/Re-Deploy/Rollback**: DEV, QA, STAGING, PROD (via [essesseff](https://essesseff.com) UX)
 * **GitOps Deploy**: DEV, QA, STAGING, PROD (managed by Argo CD by updating config-env Chart.yaml/values.yaml)
-* **API Promote/Deploy**: DEV, QA, STAGING, PROD (via essesseff public API)
+* **API Promote/Deploy**: DEV, QA, STAGING, PROD (via [essesseff public API](https://www.essesseff.com/docs/api))
+* **K8s Namespace**: this template assumes a mapping of GitHub organization ~ K8s namespace i.e. string replace essesseff-hello-world-fastapi-template with your K8s namespace (or if an [essesseff](https://essesseff.com) subscriber, simply create an app from this template to have that standard convention enforced automatically)
 
 ## Golden Path App Template Architecture Diagram
 
