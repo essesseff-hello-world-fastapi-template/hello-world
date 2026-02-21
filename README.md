@@ -43,7 +43,7 @@ essesseff favors simplicity and clear boundaries over a single repo with many ru
 * **Auto-Build**: GitHub Actions image build runs on code push to `main` branch
 * **Auto-Deploy**: DEV CI/CD deployment subsequent to successful image build (via [essesseff](https://essesseff.com) deployment orchestration)
 * **ClickOps Promote/Deploy/Re-Deploy/Rollback**: DEV, QA, STAGING, PROD (via [essesseff](https://essesseff.com) UX)
-* **GitOps Deploy**: DEV, QA, STAGING, PROD (managed by Argo CD by updating config-env Chart.yaml/values.yaml)
+* **GitOps Deploy**: DEV, QA, STAGING, PROD (managed by Argo CD by updating config-env values.yaml)
 * **API Promote/Deploy**: DEV, QA, STAGING, PROD (via [essesseff public API](https://www.essesseff.com/docs/api))
 * **K8s Namespace**: this template assumes a mapping of GitHub organization ~ K8s namespace i.e. string replace essesseff-hello-world-fastapi-template with your K8s namespace (or if an [essesseff](https://essesseff.com) subscriber, simply create an app from this template to have that standard convention enforced automatically)
 
@@ -74,7 +74,7 @@ git push origin feature/my-feature
 # 4. After review, merge to main
 # This triggers automatic build
 
-# 5. *If an essesseff subscriber*, upon successful build completion, Helm config-dev Chart.yaml and values.yaml will be automatically updated with the newly built image tag, triggering Argo CD DEV (see argocd-dev repo) to trigger automated deployment to DEV Kubernetes.
+# 5. *If an essesseff subscriber*, upon successful build completion, Helm config-dev values.yaml will be automatically updated with the newly built image tag, triggering Argo CD DEV (see argocd-dev repo) to trigger automated deployment to DEV Kubernetes.
 
 # 6. Use essesseff UI for promotions:
 #    - Developer declares Release Candidate
@@ -152,7 +152,7 @@ open http://localhost:8080/docs
 
 ## Deployment
 
-The application is built automatically and ready to deploy to DEV environment after changes are merged to `main` branch and automatic code build succeeds. If an essesseff subscriber, essesseff updates the Helm config-dev Chart.yaml and values.yaml with the newly built image tag, triggering Argo CD DEV (see argocd-dev repo) to deploy the image and DEV config to Kubernetes DEV.  Promotion to QA, STAGING, and PROD environments is managed through the essesseff platform.
+The application is built automatically and ready to deploy to DEV environment after changes are merged to `main` branch and automatic code build succeeds. If an essesseff subscriber, essesseff updates the Helm config-dev values.yaml with the newly built image tag, triggering Argo CD DEV (see argocd-dev repo) to deploy the image and DEV config to Kubernetes DEV.  Promotion to QA, STAGING, and PROD environments is managed through the essesseff platform.
 
 ### Container Image Tags
 
