@@ -35,6 +35,8 @@ essesseff favors simplicity and clear boundaries over a single repo with many ru
 * Distinct change history and audit trail: Each environment has its own git history.  "What changed in prod?" means opening the prod config repo and reading the log.  No filtering a monorepo by path or digging through unrelated commits.  Blame, compliance, and rollbacks stay scoped to the environment.
 * Simplicity via separation: We chose "more repos, each with a single concern and simple rules" over "one repo with complex conventions to get the same isolation."  For a golden path and role-based control, that trade keeps the model easy to explain and operate.
 
+*That said, if you prefer more of a DRY than WET approach to managing your Helm configs, this template does provide a fairly WET starting point only.  One way that you could take a more DRY approach while still retaining the benefits of the template as designed would be to separate the Helm Chart and any default values out from the app-/env-specific context(s) into other repo(s) (such as at an org or global context), and then also update your Argo CD config to first reference these as defaults and subsequently reference your app-/env-specific values.yaml.*
+
 ## Develop, Build and Deploy 
 
 * **Branch Strategy**: Single `main` branch (trunk-based)
