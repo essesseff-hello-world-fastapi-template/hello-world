@@ -63,7 +63,7 @@ Otherwise, you may similarly make use of the [essesseff public API](https://www.
 
 ### If not an essesseff subscriber
 
-It is highly recommended that you use the [essesseff onboarding utility](https://www.essesseff.com/docs/deployment/essesseff-onboarding-utility) in `--non-essesseff-subscriber-mode` from a shell terminal with kubectl access to your K8s cluster(s) to onboard to essesseff, GitHub, Argo CD and K8s *typically in under 5 minutes* per essesseff app.  
+It is highly recommended that you use the [essesseff onboarding utility](https://www.essesseff.com/docs/deployment/essesseff-onboarding-utility) in `--non-essesseff-subscriber-mode` from a shell terminal with kubectl access to your K8s cluster(s) to onboard to GitHub, Argo CD and K8s *typically in under 5 minutes* per essesseff app.  
 
 Otherwise, you can still freely use all of the repos in this golden path template, edit app name and namespace labels according to your needs (typically via global string replacements in the file names and contents), and then run the onboarding scripts included in each of your argocd-env repos from a shell terminal with kubectl access to you K8s cluster(s) to get fully onboarded to GitHub, Argo CD and K8s in about ~20 minutes.
 
