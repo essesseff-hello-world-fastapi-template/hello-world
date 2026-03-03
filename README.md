@@ -1,6 +1,8 @@
 # hello-world Application (FastAPI)
 
-Python FastAPI implementation with trunk-based development and GitOps-driven deployments via Argo CD to Kubernetes (see related repositories), with *optional* process orchestration, reporting, etc. via the [essesseff DevOps platform](https://essesseff.com) available on a per essesseff app subscription.
+Python FastAPI implementation with trunk-based development and GitOps-driven deployments via Argo CD to Kubernetes (see related repositories), with *optional* process orchestration, reporting, etc. via the [essesseff DevOps platform](https://essesseff.com) available on a per essesseff app subscription.  
+
+Setup **GitHub → Argo CD → K8s** in *less than 5 minutes* with the [essesseff onboarding utility](https://www.essesseff.com/docs/deployment/essesseff-onboarding-utility) *(absolutely free -- no essesseff subscription required)*.  
 
 *Please Note:*
 
