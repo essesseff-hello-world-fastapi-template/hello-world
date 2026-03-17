@@ -56,7 +56,7 @@ We chose "more repos, each with a single concern and simple rules" over "one rep
 * **ClickOps Promote/Deploy/Re-Deploy/Rollback**: DEV, QA, STAGING, PROD (via [essesseff](https://essesseff.com) UX)
 * **GitOps Deploy**: DEV, QA, STAGING, PROD (managed by Argo CD by updating config-env values.yaml)
 * **API Promote/Deploy**: DEV, QA, STAGING, PROD (via [essesseff public API](https://www.essesseff.com/docs/api))
-* **K8s Namespace**: if not otherwise specified, this template assumes, by default, a mapping of GitHub organization ~ K8s namespace i.e. string replace essesseff-hello-world-fastapi-template with your K8s namespace (or if an [essesseff](https://essesseff.com) subscriber, simply create an app from this template to have that standard convention enforced automatically)
+* **K8s Namespace**: unless otherwise specified, this template assumes, by default, a mapping of GitHub organization ~ K8s namespace i.e. string replace `{{K8S_NAMESPACE}}` with your K8s namespace (or if an [essesseff](https://essesseff.com) subscriber, simply create an app from this template to have that standard convention enforced automatically)
 
 ## Golden Path App Template Architecture Diagram
 
