@@ -1,5 +1,5 @@
 # Use official Python runtime as base image
-FROM python:3.14-slim
+FROM python:3.12-slim
 
 # Set working directory
 WORKDIR /app
@@ -23,4 +23,4 @@ EXPOSE 8080
 ENV PORT=8080
 
 # Run the application with uvicorn
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8080", "--workers", "2", "--timeout-keep-alive", "60"]
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8080", "--timeout-keep-alive", "60"]
